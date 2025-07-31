@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,8 +17,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Setter
-@Getter
 @Entity
 public class Collaborator {
 
@@ -31,7 +30,8 @@ public class Collaborator {
   private String email;
 
   private String position;
-
+  
+  @Embedded
   private AuditData metadata;
 
   @ManyToMany(mappedBy="colaboradores")
@@ -54,6 +54,64 @@ public class Collaborator {
     this.metadata = metadata;
     
   }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPosition() {
+    return position;
+  }
+
+  public void setPosition(String position) {
+    this.position = position;
+  }
+
+  public AuditData getMetadata() {
+    return metadata;
+  }
+
+  public void setMetadata(AuditData metadata) {
+    this.metadata = metadata;
+  }
+
+  public Set<Project> getProyectos() {
+    return proyectos;
+  }
+
+  public void setProyectos(Set<Project> proyectos) {
+    this.proyectos = proyectos;
+  }
+
+  public List<Task> getTareas() {
+    return tareas;
+  }
+
+  public void setTareas(List<Task> tareas) {
+    this.tareas = tareas;
+  }
+
+  
 
   
 
