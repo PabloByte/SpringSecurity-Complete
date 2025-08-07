@@ -3,7 +3,7 @@ package com.beforesecurity.beforesecurity.dto;
 public class CollaboratorDtoInsert {
 
   
-
+ // @NotBlank(message="{NotBlank.CollaboratorDtoInsert.fullName}")
  private String fullName;
 
   private String email;
