@@ -1,13 +1,19 @@
 package com.beforesecurity.beforesecurity.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+
 public class CollaboratorDtoInsert {
 
   
- // @NotBlank(message="{NotBlank.CollaboratorDtoInsert.fullName}")
+ @NotBlank(message="{NotBlank.CollaboratorDtoInsert.fullName}")
  private String fullName;
 
+  @Email(message="{Email.CollaboratorDtoInsert.email}")
   private String email;
 
+  @NotBlank(message="{NotBlank.CollaboratorDtoInsert.position}")
   private String position;
 
   public CollaboratorDtoInsert() {

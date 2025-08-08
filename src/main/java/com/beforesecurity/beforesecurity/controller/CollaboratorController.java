@@ -1,10 +1,12 @@
 package com.beforesecurity.beforesecurity.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.beforesecurity.beforesecurity.dto.CollaboratorDtoInsert;
 import com.beforesecurity.beforesecurity.dto.CollaboratorDtoReturn;
 import com.beforesecurity.beforesecurity.service.CollaboratorServiceImpl;
+
+import jakarta.validation.Valid;
 
 
 
@@ -34,13 +38,23 @@ public CollaboratorController(CollaboratorServiceImpl collaboratorServiceImpl) {
 
 
 @PostMapping("/create")
-ResponseEntity<?> createCollaborator (@RequestBody CollaboratorDtoInsert collaboratorDtoInsert){
+ResponseEntity<?> createCollaborator (@RequestBody @Valid CollaboratorDtoInsert collaboratorDtoInsert, BindingResult result ){
+
+  if(result.hasFieldErrors()) {return Validation(result);}
 
 
   CollaboratorDtoReturn collaborator = collaboratorServiceImpl.createCollaborator(collaboratorDtoInsert);
 
   return ResponseEntity.status(HttpStatus.ACCEPTED).body(collaborator);
 }
+
+
+
+
+
+ 
+
+
 
 
 
@@ -79,6 +93,19 @@ ResponseEntity<?> UpdateById (@PathVariable Long id, @RequestBody CollaboratorDt
   return  ResponseEntity.status(HttpStatus.FOUND).body(entityUpdate);
 
 }
+
+
+
+    private ResponseEntity<?> Validation(BindingResult result) {
+
+      Map<String,String> errors = new HashMap<>();
+      result.getFieldErrors().forEach(err -> {
+
+        errors.put(err.getField(), "el campo "+ err.getField() + " "+ err.getDefaultMessage());
+      });
+
+      return ResponseEntity.badRequest().body(errors);
+    }
 
 
 
