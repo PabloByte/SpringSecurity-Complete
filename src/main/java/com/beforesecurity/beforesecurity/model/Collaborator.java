@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 
 
@@ -24,6 +25,7 @@ public class Collaborator {
   @Id
   private Long id;
 
+  
   private String fullName;
 
   private String email;
@@ -118,7 +120,7 @@ public class Collaborator {
   @Override
   public String toString() {
     return "Collaborator [id=" + id + ", fullName=" + fullName + ", email=" + email + ", position=" + position
-        + ", metadata=" + metadata + ", proyectos=" + proyectos + ", tareas=" + tareas + "]";
+        + ", metadata=" + metadata +  "]";
   }
   
 
